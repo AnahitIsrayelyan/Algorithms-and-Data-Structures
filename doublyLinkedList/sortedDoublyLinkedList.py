@@ -122,28 +122,3 @@ class SortedDoublyLinkedList(DoublyLinkedList):
         super().remove(target_value)
         self.__remove_sorted(target_value)
         
-
-
-if __name__ == "__main__":
-    x = SortedDoublyLinkedList()
-    print(x.isEmpty())
-    x.push_front(ExtendedNode(2))
-    print("ordinary:",x)
-    x.print_sorted()
-    x.push_back(ExtendedNode(5))
-    print("ordinary:",x)
-    x.print_sorted()
-    x.push_front(ExtendedNode(10))
-    print("ordinary:",x)
-    x.print_sorted()
-    x.insert_after(5, ExtendedNode(4))
-    print("ordinary:",x)
-    x.print_sorted()
-    x.insert_at_position(ExtendedNode(1), 1)
-    print("ordinary:",x)
-    x.print_sorted()
-    print(x.find(5))
-    x.remove(2)
-    print("ordinary:",x)
-    x.print_sorted()
-    print(x.length())
