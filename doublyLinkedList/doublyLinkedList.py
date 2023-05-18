@@ -126,20 +126,3 @@ class DoublyLinkedList:
                 return count
             count += 1
     
-
-
-if __name__ == "__main__":
-    x = DoublyLinkedList()
-    print(x.isEmpty())
-    x.push_front(Node(2))
-    print(x)
-    x.push_back(Node(5))
-    print(x)
-    x.insert_after(5, Node(4))
-    print(x)
-    x.insert_at_position(Node(1), 1)
-    print(x)
-    print(x.find(4))
-    x.remove(4)
-    print(x)
-    print(x.length())
