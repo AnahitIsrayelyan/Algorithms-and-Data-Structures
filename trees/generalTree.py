@@ -18,8 +18,25 @@ class GTree:
     def __init__(self) -> None:
         self.root = None
 
-    def insert(self, value = None):
-        pass
+    def insert(self, value, *indices):
+        if self.root is None:
+            self.root = GTree_node()
+
+        current_node = self.root
+        for index in indices:
+            children_count = len(current_node.children)
+
+            if index < 0 or index > children_count:
+                raise IndexError("Invalid index specified")
+
+            if index == children_count:
+                new_node = GTree_node()
+                current_node.children.append(new_node)
+                current_node = new_node
+            else:
+                current_node = current_node.children[index]
+
+        current_node.value = value
 
     def execute(self, input_value: int):
         if self.root is None:
@@ -71,5 +88,6 @@ if __name__ == "__main__":
     tree.root.children[1].children.append(GTree_node(f5))
     tree.root.children[1].children.append(GTree_node(f6))
 
-    print(tree.root.children[0].value(2))
+    tree.insert(f1, 0, 1)
+   
     print(tree.execute(4))
