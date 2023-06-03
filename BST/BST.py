@@ -37,6 +37,22 @@ class BinarySearchTree:
             subTreePtr.right = self._insertInorder(subTreePtr.right, newNode)
         
         return subTreePtr
+    
+    def _insertInorderIterative(self, subTreePtr, newNode):
+        node = subTreePtr
+        while node:
+            if newNode.val > node.val:
+                if node.right is None:
+                    node.right = newNode
+                    return subTreePtr
+                node = node.right
+                continue
+            if newNode.val <= node.val:
+                if node.left is None:
+                    node.left = newNode
+                    return subTreePtr
+                node = node.left
+                continue
 
     # Removes the given target value from the tree while maintaining a
     # binary search tree.
@@ -64,6 +80,74 @@ class BinarySearchTree:
                 min_node = self._findMin(root.right)
                 root.val = min_node.val
                 root.right = self.remove(root.right, min_node.val)
+        return root
+    
+    def _removeByValueIteravive(self, root, key):
+        if root is None:
+            return None
+        
+        parent = None
+        current = root
+
+        while current:
+            if key > current.val:
+                parent = current
+                current = current.right
+            elif key < current.val:
+                parent = current
+                current = current.left
+            else:
+                break
+
+        # if key not found
+        if current is None:
+            return root
+        
+        # if key node is a leaf
+        if not current.left and not current.right:
+            if parent:
+                if parent.left == current:
+                    parent.left = None
+                else:
+                    parent.right = None
+            else:
+                root = None
+
+        # if key node has one child
+        elif not current.left:
+            child = current.right
+            if parent:
+                if parent.left == current:
+                    parent.left = child
+                else:
+                    parent.right = child
+            else:
+                root = child
+
+        elif not current.right:
+            child = current.left
+            if parent:
+                if parent.left == current:
+                    parent.left = child
+                else:
+                    parent.right = child
+            else:
+                root = child
+        # if key node has two children
+        else:
+            successor = current.right
+            successor_parent = current
+
+            while successor.left:
+                successor_parent = successor
+                successor = successor.left
+
+            current.val = successor.val
+            if successor_parent.right is successor:
+                successor_parent.right = successor.right
+            else:
+                successor_parent.left = successor.right
+
         return root
 
     def _findMin(self, node):
@@ -143,9 +227,18 @@ class BinarySearchTree:
     def add(self, newEntry):
         self.root = self._insertInorder(self.root, newEntry)
         return self.root
-
+    
+    def addIterative(self, newVal):
+        newEntry = BinaryNode(newVal)
+        self.root = self._insertInorderIterative(self.root, newEntry)
+        return self.root
+    
     def remove(self, key) -> bool:
         self.root = self._removeByValue(self.root, key)
+        return self.root
+    
+    def removeIterative(self, key):
+        self.root = self._removeByValueIteravive(self.root, key)
         return self.root
     
     def removeNode(self, node):
