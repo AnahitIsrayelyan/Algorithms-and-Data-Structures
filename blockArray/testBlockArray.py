@@ -45,15 +45,7 @@ class TestBlockArray(unittest.TestCase):
 
         self.block_array.remove(1)
         self.assertEqual(self.block_array._blocks, [[1, 3], [4]])
-
-    def test_erase(self):
-        self.block_array.append(1)
-        self.block_array.append(2)
-        self.block_array.append(3)
-        self.block_array.append(4)
-
-        self.block_array.remove(1)
-        self.assertEqual(self.block_array._blocks, [[1, 3], [4]])
+        
 
 if __name__ == '__main__':
     unittest.main()
